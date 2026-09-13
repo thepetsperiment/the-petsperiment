@@ -11,3 +11,9 @@ Aggiornamento v3:
 - dicitura iniziale resa più chiara: sequenze di colori + take that;
 - migliorata la leggibilità della tabella Halloween;
 - aggiunti nomi originali ai 6 Scienziati Halloween, mantenendo invariate le abilità.
+
+
+Aggiornamento v5:
+- galleria ordinata: Esperimenti → Creature → Azioni viola → Azioni normali → Scienziati;
+- riepilogo quantitativo spostato in popup HTML;
+- conteggio carte reso meno prominente nella home.
