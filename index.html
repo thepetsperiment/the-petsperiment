@@ -1,0 +1,528 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0f2f22">
+  <meta name="description" content="The Petsperiment: esperimenti, creature e colpi di scena in un laboratorio vittoriano fuori controllo.">
+  <title>The Petsperiment</title>
+  <link rel="icon" type="image/png" href="assets/favicon.png">
+
+  <style>
+    :root{
+      --bg:#0b100d;
+      --panel:#111a14;
+      --green:#17623f;
+      --green-2:#2c865a;
+      --paper:#ead9b0;
+      --paper-2:#f6edd8;
+      --ink:#171b17;
+      --muted:#655f53;
+      --line:rgba(255,255,255,.14);
+      --max:1180px;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      overflow-x:hidden;
+      color:var(--ink);
+      background:var(--paper);
+      font-family:Georgia,"Times New Roman",serif;
+    }
+    img{display:block;max-width:100%;height:auto}
+    a{color:inherit;text-decoration:none}
+
+    .wrap{
+      width:min(var(--max),calc(100% - 34px));
+      margin:auto;
+    }
+
+    .topbar{
+      position:absolute;
+      inset:0 0 auto 0;
+      z-index:10;
+      border-bottom:1px solid rgba(255,255,255,.15);
+      background:linear-gradient(180deg,rgba(6,10,7,.72),rgba(6,10,7,.22));
+      backdrop-filter:blur(10px);
+    }
+    .nav{
+      min-height:72px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:24px;
+      color:#fff;
+    }
+    .logo{
+      font:900 clamp(20px,2.2vw,30px)/1 Arial,sans-serif;
+      letter-spacing:-.04em;
+      text-transform:uppercase;
+    }
+    .logo span{color:#8bc4a2}
+    .links{
+      display:flex;
+      align-items:center;
+      gap:24px;
+      font:800 12px/1 Arial,sans-serif;
+      text-transform:uppercase;
+      letter-spacing:.12em;
+    }
+    .links a{opacity:.78}
+    .links a:hover{opacity:1}
+
+    .hero{
+      position:relative;
+      min-height:min(900px,94svh);
+      display:grid;
+      align-items:end;
+      color:#fff;
+      background:#0c110d;
+      overflow:hidden;
+    }
+    .hero-media{
+      position:absolute;
+      inset:0;
+      background:
+        linear-gradient(90deg,rgba(5,9,6,.92) 0%,rgba(5,9,6,.70) 38%,rgba(5,9,6,.18) 74%,rgba(5,9,6,.43) 100%),
+        linear-gradient(180deg,rgba(0,0,0,.04),rgba(0,0,0,.58)),
+        url("assets/hero.webp") center/cover no-repeat;
+      transform:scale(1.01);
+    }
+    .hero-copy{
+      position:relative;
+      z-index:2;
+      max-width:730px;
+      padding:140px 0 78px;
+    }
+    .eyebrow{
+      display:flex;
+      align-items:center;
+      gap:11px;
+      margin-bottom:18px;
+      color:#b9d7c4;
+      font:800 12px/1 Arial,sans-serif;
+      text-transform:uppercase;
+      letter-spacing:.17em;
+    }
+    .eyebrow:before{
+      content:"";
+      width:36px;
+      height:2px;
+      background:#65a27d;
+    }
+    h1,h2,h3,p{margin-top:0}
+    h1{
+      margin-bottom:26px;
+      font-size:clamp(58px,10vw,118px);
+      line-height:.82;
+      letter-spacing:-.065em;
+      text-transform:uppercase;
+    }
+    .hero p{
+      max-width:650px;
+      margin-bottom:28px;
+      color:#f4efe7;
+      font-size:clamp(18px,2vw,24px);
+      line-height:1.55;
+    }
+    .actions{display:flex;flex-wrap:wrap;gap:12px}
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-height:50px;
+      padding:0 22px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.36);
+      color:#fff;
+      font:800 12px/1 Arial,sans-serif;
+      text-transform:uppercase;
+      letter-spacing:.1em;
+      transition:.18s ease;
+    }
+    .btn:hover{transform:translateY(-2px)}
+    .btn.primary{background:var(--green);border-color:var(--green)}
+
+    .section{
+      padding:84px 0;
+    }
+    .paper{
+      background:
+        linear-gradient(rgba(255,255,255,.20),rgba(255,255,255,.08)),
+        repeating-linear-gradient(0deg,rgba(67,50,25,.025) 0 1px,transparent 1px 4px),
+        var(--paper);
+    }
+    .section-head{
+      display:grid;
+      grid-template-columns:.9fr 1.1fr;
+      gap:54px;
+      align-items:end;
+      margin-bottom:38px;
+    }
+    .kicker{
+      color:var(--green);
+      font:800 12px/1 Arial,sans-serif;
+      text-transform:uppercase;
+      letter-spacing:.17em;
+    }
+    h2{
+      margin:9px 0 0;
+      font-size:clamp(40px,5.5vw,72px);
+      line-height:.96;
+      letter-spacing:-.045em;
+    }
+    .lead{
+      margin:0;
+      color:#4f4a40;
+      font-size:20px;
+      line-height:1.65;
+    }
+
+    .cards{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:18px;
+    }
+    .card{
+      min-height:300px;
+      padding:27px;
+      border:1px solid rgba(31,46,35,.16);
+      background:rgba(255,250,237,.62);
+      box-shadow:0 16px 44px rgba(47,34,16,.08);
+    }
+    .num{
+      margin-bottom:48px;
+      color:rgba(18,91,58,.16);
+      font:900 54px/1 Arial,sans-serif;
+    }
+    .card h3{
+      margin-bottom:9px;
+      font-size:27px;
+    }
+    .card p{
+      margin-bottom:0;
+      color:#5c574d;
+      line-height:1.63;
+    }
+
+    .dark{
+      background:
+        radial-gradient(circle at 70% 20%,rgba(33,91,59,.18),transparent 34rem),
+        #0e1510;
+      color:#fff;
+    }
+    .dark .kicker{color:#85b899}
+    .dark .lead{color:#c6d0c8}
+
+    .steps{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:1px;
+      overflow:hidden;
+      border:1px solid #334139;
+      background:#334139;
+    }
+    .step{
+      min-height:250px;
+      padding:30px;
+      background:#152018;
+    }
+    .step small{
+      display:block;
+      margin-bottom:18px;
+      color:#8db59a;
+      font:900 12px/1 Arial,sans-serif;
+      text-transform:uppercase;
+      letter-spacing:.13em;
+    }
+    .step h3{
+      margin-bottom:10px;
+      font-size:28px;
+    }
+    .step p{
+      margin:0;
+      color:#c6cec8;
+      line-height:1.55;
+    }
+
+    .feature{
+      display:grid;
+      grid-template-columns:1.25fr .75fr;
+      gap:22px;
+    }
+    .feature-img{
+      position:relative;
+      min-height:520px;
+      overflow:hidden;
+      border:1px solid rgba(255,255,255,.13);
+      background:
+        linear-gradient(180deg,rgba(0,0,0,.05),rgba(0,0,0,.76)),
+        url("assets/hero.webp") center/cover no-repeat;
+    }
+    .feature-copy{
+      position:absolute;
+      left:24px;
+      right:24px;
+      bottom:24px;
+    }
+    .feature-copy h3{
+      margin-bottom:7px;
+      font-size:38px;
+    }
+    .feature-copy p{
+      max-width:570px;
+      margin:0;
+      color:#d7dfd9;
+      line-height:1.56;
+    }
+    .stack{display:grid;gap:16px}
+    .mini{
+      padding:24px;
+      border:1px solid #2c3b31;
+      background:#162019;
+    }
+    .mini h3{margin-bottom:8px;font-size:23px}
+    .mini p{margin:0;color:#bdc7bf;line-height:1.58}
+
+    .contact{
+      padding:70px 0;
+      color:#fff;
+      background:linear-gradient(135deg,#0a291c,#113b29 60%,#092219);
+    }
+    .contact-grid{
+      display:grid;
+      grid-template-columns:1fr .9fr;
+      gap:46px;
+      align-items:center;
+    }
+    .contact h2{margin:6px 0 14px}
+    .contact p{margin:0;color:#d8e3dc;font-size:18px;line-height:1.6}
+    .contact-list{display:grid;gap:12px}
+    .contact-list a,.contact-list div{
+      padding:16px 18px;
+      border:1px solid rgba(255,255,255,.16);
+      background:rgba(255,255,255,.04);
+      font-family:Arial,sans-serif;
+      overflow-wrap:anywhere;
+    }
+
+    footer{
+      padding:22px 0;
+      color:#9fa7a1;
+      background:#070a08;
+      font:12px Arial,sans-serif;
+    }
+    footer .wrap{
+      display:flex;
+      justify-content:space-between;
+      flex-wrap:wrap;
+      gap:14px;
+    }
+
+    @media (max-width:900px){
+      .links{display:none}
+      .section-head,.contact-grid,.feature{grid-template-columns:1fr}
+      .cards{grid-template-columns:1fr}
+      .steps{grid-template-columns:1fr 1fr}
+      .feature-img{min-height:430px}
+    }
+
+    @media (max-width:600px){
+      .wrap{width:min(var(--max),calc(100% - 22px))}
+      .nav{min-height:62px}
+      .hero{
+        min-height:760px;
+      }
+      .hero-media{
+        background:
+          linear-gradient(180deg,rgba(5,9,6,.28) 0%,rgba(5,9,6,.45) 32%,rgba(5,9,6,.94) 70%,rgba(5,9,6,.98) 100%),
+          url("assets/hero.webp") 58% center/cover no-repeat;
+      }
+      .hero-copy{padding:100px 0 42px}
+      h1{font-size:52px;line-height:.88}
+      .hero p{font-size:17px}
+      .actions{display:grid}
+      .btn{width:100%}
+      .section{padding:58px 0}
+      .section-head{gap:22px;margin-bottom:26px}
+      h2{font-size:42px}
+      .lead{font-size:18px}
+      .steps{grid-template-columns:1fr}
+      .feature-img{min-height:390px}
+      .feature-copy h3{font-size:30px}
+      footer .wrap{display:block}
+      footer span{display:block;margin:5px 0}
+    }
+  </style>
+</head>
+
+<body>
+<header class="hero" id="top">
+  <div class="hero-media" aria-hidden="true"></div>
+
+  <div class="topbar">
+    <div class="wrap nav">
+      <a class="logo" href="#top">The <span>Petsperiment</span></a>
+      <nav class="links" aria-label="Navigazione principale">
+        <a href="#gioco">Il gioco</a>
+        <a href="#regole">Come si gioca</a>
+        <a href="#mondo">Il mondo</a>
+        <a href="#contatti">Contatti</a>
+      </nav>
+    </div>
+  </div>
+
+  <div class="wrap hero-copy">
+    <div class="eyebrow">Esperimenti • Creature • Caos</div>
+    <h1>The<br>Petsperiment</h1>
+    <p>
+      Un laboratorio vittoriano, creature imprevedibili e una corsa scientifica
+      in cui ogni carta può cambiare il destino dell'esperimento.
+    </p>
+    <div class="actions">
+      <a class="btn primary" href="#regole">Scopri il gioco</a>
+      <a class="btn" href="#contatti">Contattaci</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="section paper" id="gioco">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <div class="kicker">Dentro il laboratorio</div>
+          <h2>Strategia, rischio e creature fuori controllo.</h2>
+        </div>
+        <p class="lead">
+          Completa i quattro progressi del tuo esperimento, proteggiti dagli avversari
+          e usa le carte azione per cambiare il corso della partita.
+        </p>
+      </div>
+
+      <div class="cards">
+        <article class="card">
+          <div class="num">01</div>
+          <h3>Quattro progressi</h3>
+          <p>Incubazione, Manipolazione, Scossa elettrica e Creazione: il percorso verso la creatura finale.</p>
+        </article>
+
+        <article class="card">
+          <div class="num">02</div>
+          <h3>Carte azione</h3>
+          <p>Microscopi, scambi, eliminazioni, contromosse e sabotaggi rendono ogni partita diversa.</p>
+        </article>
+
+        <article class="card">
+          <div class="num">03</div>
+          <h3>Finale imprevedibile</h3>
+          <p>Quando la vittoria sembra vicina, una sola carta può ancora mandare in crisi l'intero laboratorio.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section dark" id="regole">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <div class="kicker">Come si gioca</div>
+          <h2>Porta a termine il tuo esperimento.</h2>
+        </div>
+        <p class="lead">
+          Il cuore del gioco è costruire la propria strategia, proteggersi e interferire
+          con gli esperimenti degli altri giocatori.
+        </p>
+      </div>
+
+      <div class="steps">
+        <div class="step">
+          <small>Fase 1</small>
+          <h3>Pesca</h3>
+          <p>Ottieni nuove possibilità e scegli come sviluppare la tua strategia.</p>
+        </div>
+        <div class="step">
+          <small>Fase 2</small>
+          <h3>Costruisci</h3>
+          <p>Avanza nei quattro progressi scientifici necessari per arrivare alla Creazione.</p>
+        </div>
+        <div class="step">
+          <small>Fase 3</small>
+          <h3>Interferisci</h3>
+          <p>Usa carte azione e difese per rallentare gli altri o proteggere il tuo laboratorio.</p>
+        </div>
+        <div class="step">
+          <small>Fase 4</small>
+          <h3>Crea</h3>
+          <p>Completa il percorso e porta in vita la tua creatura prima degli avversari.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section dark" id="mondo">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <div class="kicker">Il mondo di The Petsperiment</div>
+          <h2>Scienziati, creature e un laboratorio vittoriano.</h2>
+        </div>
+        <p class="lead">
+          Un'identità visiva fatta di carta, inchiostro, vetro, ottone, strani macchinari
+          e creature nate da esperimenti non sempre perfettamente riusciti.
+        </p>
+      </div>
+
+      <div class="feature">
+        <div class="feature-img">
+          <div class="feature-copy">
+            <h3>Esperimenti riusciti. Più o meno.</h3>
+            <p>Ogni elemento del gioco appartiene allo stesso universo illustrato, tra avventura, mistero e ironia.</p>
+          </div>
+        </div>
+
+        <div class="stack">
+          <div class="mini">
+            <h3>Creature riconoscibili</h3>
+            <p>Personaggi differenti, pensati per avere una propria identità carta dopo carta.</p>
+          </div>
+          <div class="mini">
+            <h3>Scienziati rivali</h3>
+            <p>Il laboratorio è una competizione: ogni giocatore cerca di completare per primo la propria creazione.</p>
+          </div>
+          <div class="mini">
+            <h3>Caos controllato</h3>
+            <p>Le carte azione permettono di ribaltare continuamente gli equilibri senza perdere il filo strategico.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact" id="contatti">
+    <div class="wrap contact-grid">
+      <div>
+        <div class="kicker" style="color:#9cc4aa">The Petsperiment</div>
+        <h2>Contatti</h2>
+        <p>Per informazioni sul progetto, sul gioco e sul suo sviluppo.</p>
+      </div>
+
+      <div class="contact-list">
+        <div><strong>Nicolò Rocco Alessandro</strong></div>
+        <a href="mailto:thepetsperiment@gmail.com">thepetsperiment@gmail.com</a>
+        <a href="tel:+393932080791">Cell 3932080791</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 The Petsperiment</span>
+    <span>Gioco da tavolo • Progetto indipendente</span>
+  </div>
+</footer>
+</body>
+</html>
