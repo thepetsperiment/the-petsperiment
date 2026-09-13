@@ -1,23 +1,8 @@
-# The Petsperiment — GitHub Pages
+# The PetSperiment — sito completo
 
-Contenuto:
-- `index.html` — home page responsive
-- `assets/hero.webp` — immagine principale ottimizzata
-- `assets/favicon.png` — icona del sito
+Sostituisci nel repository GitHub Pages il vecchio `index.html` e la cartella `assets` con questi file, quindi fai Commit changes.
 
-## Pubblicazione gratuita su GitHub Pages
+Il sito è responsive e utilizza i contenuti del documento di riferimento fornito.
 
-1. Crea un nuovo repository pubblico su GitHub, per esempio `the-petsperiment`.
-2. Carica **il contenuto di questa cartella** nel repository:
-   - index.html
-   - cartella assets
-3. Apri `Settings` > `Pages`.
-4. In `Build and deployment`, seleziona:
-   - Source: `Deploy from a branch`
-   - Branch: `main`
-   - Folder: `/ (root)`
-5. Premi `Save`.
-6. Dopo pochi minuti il sito sarà disponibile a un indirizzo simile a:
-   `https://TUO-USERNAME.github.io/the-petsperiment/`
 
-Il layout è già ottimizzato per desktop, tablet e smartphone.
+Aggiornamento: la sezione Halloween è ora indicata come futura espansione in sviluppo, separata dal gioco base.
